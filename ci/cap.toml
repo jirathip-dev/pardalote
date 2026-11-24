@@ -1,0 +1,6 @@
+# The hard cap on non-test Rust lines across crates/*/src. Raising it needs the owner's OK in a `cap:` issue
+# (one new ci/cap.d/<date>-<N>.toml).
+line_cap = 1500
+count = ["crates/*/src/**/*.rs"]
+skip_blank = true
+stop_at_cfg_test = true

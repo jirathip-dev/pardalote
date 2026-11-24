@@ -1,0 +1,20 @@
+name: ci
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+    branches: [main, staging]
+    types: [opened, synchronize, reopened, edited]
+
+concurrency:
+  group: ci-${{ github.event_name == 'push' && github.sha || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  gates:
+    uses: jirathip-dev/gatekeeper/.github/workflows/gates.yml@a1e76ca28aa643261034e6eabd8b452e0d5860ac # v1.1.1
+    secrets:
+      private-names: ${{ secrets.PRIVATE_NAMES }}

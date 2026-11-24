@@ -1,0 +1,6 @@
+about = "every workspace test on the MSRV"
+fix = "fix the failing test the log names"
+budget_secs = 600
+setup = ["rust"]
+paths = ["crates/**", "Cargo.toml", "Cargo.lock", "rust-toolchain.toml"]
+run = "cargo test --workspace --locked"
