@@ -4,7 +4,7 @@
 
 Decision: pard is one small program that shed starts per lane. A core that knows no provider holds the ACP side, six fixed tools, an append-only session log and two generic model clients; each provider is one config file. The system prompt and tool list never change, so the provider's prompt cache keeps hitting.
 Slices: (0) the dependencies alone; (1) conversation shapes and provider files; (2) transport, retries and the OpenAI-format client; (3) the Anthropic client; (4) the six tools; (5) the ACP side and the session log; (6) the turn loop, permissions and usage; (7) compaction and the cache checks. About 3,000 source lines. Then a rerun of the shed#375 task.
-Open questions: (1) Anthropic's terms do not permit a Claude subscription login in pard: leave that provider file unwritten and use an API key (recommended), or write it anyway? (2) The ACP crate the issue names brings 108 of pard's 153 lockfile packages, and the dependency gate allows 10 new packages a PR: allow one dependency-only PR (recommended), or write the nine ACP messages by hand (45 packages, about 300 more lines)? (3) One cap raise from 1,500 to 3,400 lines before slice 1 (recommended), or one per slice? (4) shed#375's verdict is "all three fall short", which was the condition for building: start the slices now?
+Owner decisions (2026-11-24, issue amendment): (1) no Claude subscription login: that provider file stays unwritten and Claude goes through an API key. (2) Keep the `agent-client-protocol` crate; its dependencies land in one dependency-only PR, slice 0, as the one exception to the 10-package gate. (3) One cap raise from 1,500 to 3,400 lines before slice 1. (4) Start the slices now.
 
 ## Where things are
 
@@ -182,7 +182,7 @@ Each is one PR with its tests. The line counts are non-test Rust lines as `ci/ca
 
 | # | slice | files | lines |
 |---|---|---|---|
-| 0 | The dependencies alone: the three crates as empty shells, every dependency with its reason in `.gatekeeper/deps.toml`, the lockfile. No behaviour. Needs the owner's answer to open question 2. | manifests, `Cargo.lock` | 0 |
+| 0 | The dependencies alone: the three crates as empty shells, every dependency with its reason in `.gatekeeper/deps.toml`, the lockfile. No behaviour. The owner's one exception to the 10-package gate. | manifests, `Cargo.lock` | 0 |
 | 1 | Shapes and provider files: the types, the catalog, five provider files (deepseek, kimi, glm, openrouter, anthropic). | `pard-model`: `types` 110, `catalog` 220 | 330 |
 | 2 | Transport, stream decoding, retries, and the OpenAI-format client, tested on recorded streams. | `http` 240, `openai` 260 | 500 |
 | 3 | The Anthropic client with its cache marks and thinking blocks. | `anthropic` 260 | 260 |

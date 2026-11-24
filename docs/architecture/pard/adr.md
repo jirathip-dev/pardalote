@@ -4,7 +4,7 @@
 
 Decision: pard is one small program that shed starts per lane. A core that knows no provider holds the ACP side, six fixed tools, an append-only session log and two generic model clients; each provider is one config file. The system prompt and tool list never change, so the provider's prompt cache keeps hitting.
 Slices: (0) the dependencies alone; (1) conversation shapes and provider files; (2) transport, retries and the OpenAI-format client; (3) the Anthropic client; (4) the six tools; (5) the ACP side and the session log; (6) the turn loop, permissions and usage; (7) compaction and the cache checks. About 3,000 source lines. Then a rerun of the shed#375 task.
-Open questions: (1) Anthropic's terms do not permit a Claude subscription login in pard: leave that provider file unwritten and use an API key (recommended), or write it anyway? (2) The ACP crate the issue names brings 108 of pard's 153 lockfile packages, and the dependency gate allows 10 new packages a PR: allow one dependency-only PR (recommended), or write the nine ACP messages by hand (45 packages, about 300 more lines)? (3) One cap raise from 1,500 to 3,400 lines before slice 1 (recommended), or one per slice? (4) shed#375's verdict is "all three fall short", which was the condition for building: start the slices now?
+Owner decisions (2026-11-24, issue amendment): (1) no Claude subscription login: that provider file stays unwritten and Claude goes through an API key. (2) Keep the `agent-client-protocol` crate; its dependencies land in one dependency-only PR, slice 0, as the one exception to the 10-package gate. (3) One cap raise from 1,500 to 3,400 lines before slice 1. (4) Start the slices now.
 
 ## The question
 
@@ -28,7 +28,7 @@ run on such models, and fits shed without adapters?
 
 - The `agent-client-protocol` crate at `=5.0.0`, shed's pin, with its `stdio` feature, as the issue says.
   Protocol version 1, the one shed asks for. The crate is most of pard's dependency tree: see decision 8 and
-  open question 2.
+  the owner's decision 2.
 - pard implements `initialize`, `session/new`, `session/load`, `session/prompt`, `session/cancel`,
   `session/set_config_option` (the `model` option) and `session/close`, and sends `session/update` and
   `session/request_permission`. The table of methods by module is in [README.md](README.md).
@@ -176,7 +176,7 @@ is the owner's Claude account: the terms allow suspension without notice.
 **Decision.** The design keeps it a separate provider file, as decided: it would be one optional file with a
 bearer `auth` line, extra `headers` and one new key for a fixed prefix on the system prompt, built in only under
 a Cargo feature that is off by default, and needing no login code, since shed already hands over the setup
-token. No slice writes that file or that key. I recommend it stays unwritten. Two permitted routes cover the
+token. No slice writes that file or that key. The owner decided it stays unwritten. Two permitted routes cover the
 need: Claude through the `anthropic` provider file with an API key, and subscription work in shed's existing
 `claude-acp` lanes, which run Claude Code itself.
 
@@ -203,7 +203,7 @@ What that tree weighs, resolved in a scratch folder on 2026-11-24 and counted as
 fresh resolve of the 153 lists two versions of nine packages in the lockfile; the 45 without the ACP crate list
 none. shed builds the same crate under the same rule with one `skip` in its `deny.toml` (`syn` 2, for the ACP
 crate's macros), so slice 0 starts from shed's lockfile versions and copies that line. Slice 0 is that one PR: the dependencies and nothing else, so the owner's exception covers one reviewable diff. The
-other way out is open question 2's second half: no ACP crate, the nine messages pard uses written by hand over
+rejected way out (owner decision 2): no ACP crate, the nine messages pard uses written by hand over
 `serde_json`. That is about 300 more lines in `acp`, a cap of 3,700, a tree of 45 packages, and it departs from
 the issue's text.
 
