@@ -1,0 +1,22 @@
+frozen = [".github/workflows/ci.yml"]
+
+[comments]
+policy = "on"
+
+[[size]]
+paths = ["crates/*/src/**/*.rs"]
+max_file_lines = 2000
+max_fn_lines = 105
+
+[[size]]
+paths = ["crates/*/tests/**/*.rs"]
+max_file_lines = 100000
+max_fn_lines = 105
+
+[[size]]
+paths = [".drover/rules.md"]
+max_file_lines = 30
+
+[[collect]]
+dir = ".gatekeeper/gates"
+glob = "*.toml"
