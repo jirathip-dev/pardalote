@@ -1,0 +1,22 @@
+name = "OpenRouter"
+wire = "openai"
+base_url = "https://openrouter.ai/api/v1"
+key_env = "OPENROUTER_API_KEY"
+auth = "authorization: Bearer {key}"
+reasoning = "echo"
+
+[usage]
+cost = ["cost"]
+
+[[models]]
+id = "deepseek/deepseek-v4.1-flash-1017"
+name = "DeepSeek V4.1 Flash (OpenRouter)"
+context = 1048576
+max_output = 393216
+
+[models.price]
+currency = "USD"
+input = 0.30
+cache_read = 0.006
+cache_write = 0.30
+output = 1.20

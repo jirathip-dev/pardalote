@@ -1,0 +1,15 @@
+name = "Kimi"
+wire = "openai"
+base_url = "https://api.moonshot.ai/v1"
+key_env = "MOONSHOT_API_KEY"
+auth = "authorization: Bearer {key}"
+reasoning = "echo"
+
+[usage]
+cache_write = ["prompt_tokens_details", "cache_write_tokens"]
+
+[[models]]
+id = "kimi-k3.1-pro"
+name = "Kimi K3.1 Pro"
+context = 1048576
+max_output = 131072

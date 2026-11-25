@@ -1,0 +1,18 @@
+name = "Z.ai GLM"
+wire = "openai"
+base_url = "https://api.z.ai/api/paas/v4"
+key_env = "ZAI_API_KEY"
+auth = "authorization: Bearer {key}"
+
+[[models]]
+id = "glm-5.3"
+name = "GLM-5.3"
+context = 1048576
+max_output = 131072
+
+[models.price]
+currency = "USD"
+input = 1.4
+cache_read = 0.26
+cache_write = 1.4
+output = 4.4
