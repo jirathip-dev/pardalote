@@ -765,6 +765,8 @@ version = "0.0.0"
 dependencies = [
  "ignore",
  "regex",
+ "serde",
+ "serde_json",
  "tokio",
 ]
 
