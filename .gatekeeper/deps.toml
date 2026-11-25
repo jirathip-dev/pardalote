@@ -1,3 +1,12 @@
 growth = 10
 
 [cargo]
+agent-client-protocol = "the ACP wire types and SDK pard speaks to shed over stdio: a protocol is never re-typed in-house (ADR decision 1, owner decision 2)"
+futures = "stream and select helpers the ACP SDK's handler futures need; already in the SDK's tree"
+ignore = "walks the session folder honouring .gitignore for the grep and glob tools: a gitignore matcher is never written in-house"
+regex = "the grep tool's patterns: a regex engine is never written in-house"
+serde = "derive the parsing and writing of provider files, the session log and the wire bodies"
+serde_json = "the model APIs' JSON bodies, their streams and the session log: a parser of input from outside"
+tokio = "the async runtime, the curl and shell child processes, pipes and timers"
+toml = "parse the provider files: a parser of files from outside"
+uuid = "session ids; already in the ACP SDK's tree"

@@ -10,6 +10,19 @@ license = "MIT"
 repository = "https://github.com/jirathip-dev/pardalote"
 publish = false
 
+[workspace.dependencies]
+pard-model = { path = "crates/pard-model" }
+pard-tools = { path = "crates/pard-tools" }
+agent-client-protocol = { version = "=5.0.0", features = ["stdio"] }
+futures = { version = "=0.3.34", default-features = false, features = ["std"] }
+ignore = "=0.4.34"
+regex = "=1.13.1"
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = { version = "=1.0.154", features = ["raw_value"] }
+tokio = { version = "=1.54.1", default-features = false }
+toml = { version = "=1.2.1", default-features = false, features = ["parse", "serde", "std"] }
+uuid = { version = "=1.29.1", default-features = false, features = ["v4"] }
+
 [workspace.lints.rust]
 unsafe_code = "forbid"
 missing_docs = "warn"
