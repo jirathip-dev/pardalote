@@ -1,0 +1,42 @@
+name = "Anthropic"
+wire = "anthropic"
+base_url = "https://api.anthropic.com"
+key_env = "ANTHROPIC_API_KEY"
+auth = "x-api-key: {key}"
+reasoning = "echo"
+
+[headers]
+anthropic-version = "2023-06-01"
+
+[cache]
+mode = "marked"
+ttl = "5m"
+
+[errors]
+overflow = ["prompt is too long"]
+
+[[models]]
+id = "claude-sonnet-5-5"
+name = "Claude Sonnet 5.5"
+context = 1000000
+max_output = 128000
+
+[models.price]
+currency = "USD"
+input = 2.0
+cache_read = 0.10
+cache_write = 2.50
+output = 10.0
+
+[[models]]
+id = "claude-opus-5-5"
+name = "Claude Opus 5.5"
+context = 1000000
+max_output = 128000
+
+[models.price]
+currency = "USD"
+input = 4.0
+cache_read = 0.20
+cache_write = 5.0
+output = 20.0

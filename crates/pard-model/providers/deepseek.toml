@@ -1,0 +1,38 @@
+name = "DeepSeek"
+wire = "openai"
+base_url = "https://api.deepseek.com"
+key_env = "DEEPSEEK_API_KEY"
+auth = "authorization: Bearer {key}"
+reasoning = "echo"
+
+[usage]
+cache_read = ["prompt_cache_hit_tokens"]
+
+[errors]
+overflow = ["maximum context length"]
+
+[[models]]
+id = "deepseek-flash"
+name = "DeepSeek V4.1 Flash"
+context = 1000000
+max_output = 384000
+
+[models.price]
+currency = "USD"
+input = 0.15
+cache_read = 0.003
+cache_write = 0.15
+output = 0.60
+
+[[models]]
+id = "deepseek-v4-pro"
+name = "DeepSeek V4 Pro"
+context = 1000000
+max_output = 384000
+
+[models.price]
+currency = "USD"
+input = 0.66
+cache_read = 0.022
+cache_write = 0.66
+output = 1.98

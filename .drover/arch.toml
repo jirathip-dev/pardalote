@@ -20,3 +20,7 @@ max_file_lines = 30
 [[collect]]
 dir = ".gatekeeper/gates"
 glob = "*.toml"
+
+[[collect]]
+dir = "crates/pard-model/providers"
+glob = "*.toml"
